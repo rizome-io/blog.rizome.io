@@ -12996,7 +12996,6 @@ fsevents@^1.2.7:
   version: 0.0.0-use.local
   resolution: "gatsby-starter-advanced@workspace:."
   dependencies:
-    "@testing-library/cypress": ^8.0.0
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^12.0.0
     "@types/jest": ^26.0.24
@@ -13008,8 +13007,6 @@ fsevents@^1.2.7:
     "@typescript-eslint/eslint-plugin": ^4.29.0
     babel-jest: ^27.0.6
     babel-plugin-styled-components: ^1.13.2
-    cypress: ^8.2.0
-    cypress-axe: ^0.12.2
     eslint: ^7.32.0
     eslint-config-airbnb: ^18.2.1
     eslint-config-airbnb-typescript: ^12.3.1
@@ -13023,7 +13020,6 @@ fsevents@^1.2.7:
     eslint-plugin-react-hooks: ^4.2.0
     eslint-plugin-testing-library: ^4.10.1
     gatsby: ^3.11.0
-    gatsby-cypress: ^1.11.0
     gatsby-plugin-styled-components: ^4.11.0
     gatsby-theme-amaranth: "workspace:*"
     gh-pages: ^3.2.3
