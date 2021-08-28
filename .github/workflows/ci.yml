@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [".", "./themes/amaranth", "./themes/advanced"]
+        project: ["./rizome", "./themes/amaranth", "./themes/advanced"]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
