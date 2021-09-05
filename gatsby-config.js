@@ -1,10 +1,16 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby With Orga`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `Xiaoxing Hu`,
-    twitter: 'xiaoxinghu',
-    github: 'xiaoxinghu',
+    title: `Rizome & Lucid`,
+    description: `Cardano blockchain infrastructure and architecture`,
+    author: `rizome.io`,
+    twitter: 'lucid_ada_pool',
+    github: 'rizome-io',
+    siteUrl: `https://blog.rizome.io`,
+    social: [
+      { name: 'twitter', url: 'https://twitter.com/lucid_ada_pool' },
+      { name: 'website', url: 'https://rizome.io' },
+      { name: 'email', url: 'mailto:id@rizome.io' },
+    ],
   },
   plugins: [
     {
