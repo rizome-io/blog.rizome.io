@@ -9,6 +9,10 @@ module.exports = {
   plugins: [
     {
       resolve: 'gatsby-theme-orga-posts',
+      options: {
+        columns: 1,
+        preset: require.resolve('./src/gatsby-plugin-theme-ui/index.ts')
+      }
     },
   ],
 }
