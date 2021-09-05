@@ -1,0 +1,143 @@
+#+TITLE: File based post
+#+DATE: <2021-08-16 Mon>
+#+CATEGORY: rpi4
+#+DESCRIPTION: is it possible to install nixos on raspberry pi 4 without attaching to screen.
+#+TAGS: nix raspberryPi
+#+IMAGE: images/lucid_intro.png
+#+EXCLUDE_TAGS: todo
+
+
+This is a file based post.
+
+* Nix on raspberry pi 4
+** download your image
+https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image.aarch64-linux/all
+** extract
+#+begin_src sh
+nix-shell -p 'zstd'
+zstd -d nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img.zst
+
+#+end_src
+** into machine
+- blindly set your passwd
+  passwd
+  pass
+  pass
+- blindly start sshd
+  sudo systemctl start sshd
+- ssh into machine
+  ssh nixos@IP
+  pass
+- create config file
+  sudo nixos-generate-config
+*** overwrite with your config
+  ~services.openssh.enable = true;~
+  https://nixos.org/manual/nixos/stable/index.html#sec-user-management
+  ~mkpasswd -m sha-512~
+  #+begin_src nix
+  users = {
+    defaultUserShell = pkgs.zsh;
+    # mutableUsers = false;
+    users.root = {
+      initialHashedPassword = "$6$NGUlZdS60iQ$ARW0KjsuwzlEWrCwMlvobfk2BRvu1cMhUcsy4x1d47x.AW.bVZpH4KbzJDkSNoYjfk.GNL5E1Fjj7rQThjasG1";
+      openssh.authorizedKeys.keys = [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5FWRYE/vmJ0C7tD2dz6WBgWCuNLvXmS13i5r/nmdHcBuD+EEojeL4NwfhiIrEP8udc3fSDJ+641+aRVKsrsUHdzASn6sAb10ZmwlezBfXe7V//UBFBkYODE8byvB5VIJx4TtYuR8E6kjb5grds+Y93wzO4V9MMlJPXleG5qihm12PQbva+PTrcZOqHqG1HejW0kOmJ06klWQyk5CTE8Xp0BwJrTC2nnyruh9cvHL4+xfOBOtDl/ZOgI3j53nlBoMqhZI8np0IlZhXj43VyFnu0QT+HODVN8HNLyLFBlhBWAoKd6FPeSBgvgDl0iM/bIJe8Ffk3hx+52thAoyW4bcrcOlmLYZwoJbW9S+7BT3+IkDxx6ua1wu0fXCWnSsvyvbwVeywGsLHwA0g4QfswgnK1gZq6G4kKzyUnHAMODqUcPbdK1Dy1ziWr101x6yNtaogXxDNT7K7eQ9X4lb+kUaMYRpmIdRZXYlONk0hzbCJSwtTl9RnTy81pFX7HdpJlxE= andy@feather"
+      ];
+    };
+    users.andy = {
+      isNormalUser = true;
+      initialHashedPassword = "$6$NGUlZdS60iQ$ARW0KjsuwzlEWrCwMlvobfk2BRvu1cMhUcsy4x1d47x.AW.bVZpH4KbzJDkSNoYjfk.GNL5E1Fjj7rQThjasG1";
+      extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+      openssh.authorizedKeys.keys = [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5FWRYE/vmJ0C7tD2dz6WBgWCuNLvXmS13i5r/nmdHcBuD+EEojeL4NwfhiIrEP8udc3fSDJ+641+aRVKsrsUHdzASn6sAb10ZmwlezBfXe7V//UBFBkYODE8byvB5VIJx4TtYuR8E6kjb5grds+Y93wzO4V9MMlJPXleG5qihm12PQbva+PTrcZOqHqG1HejW0kOmJ06klWQyk5CTE8Xp0BwJrTC2nnyruh9cvHL4+xfOBOtDl/ZOgI3j53nlBoMqhZI8np0IlZhXj43VyFnu0QT+HODVN8HNLyLFBlhBWAoKd6FPeSBgvgDl0iM/bIJe8Ffk3hx+52thAoyW4bcrcOlmLYZwoJbW9S+7BT3+IkDxx6ua1wu0fXCWnSsvyvbwVeywGsLHwA0g4QfswgnK1gZq6G4kKzyUnHAMODqUcPbdK1Dy1ziWr101x6yNtaogXxDNT7K7eQ9X4lb+kUaMYRpmIdRZXYlONk0hzbCJSwtTl9RnTy81pFX7HdpJlxE= andy@feather"
+      ];
+    };
+  };
+
+
+
+  #+end_src
+** sudo nixos-rebuild switch
+* Building from source
+#+begin_src sh
+git clone --depth=1 -b $RELEASE https://github.com/NixOS/nixpkgs
+#+end_src
+
+#+name: sd-image-aarch64-iso.nix
+#+begin_src nix
+{ lib, ... }: {
+  imports = [
+    <nixpkgs/nixos/modules/installer/cd-dvd/sd-image-aarch64.nix>
+  ];
+  users.users.andy = {
+    isNormalUser = true;
+    home = "/home/andy";
+    descriptioy = "Andy Candy";
+    extraGroups = [ "wheel", "networkmanager" ];
+    openssh.authorizedKeys.keys = [
+     "ssh-ed25519 ..."
+  ]
+  }
+  services.openssh.enabled = true;
+}
+#+end_src
+* Building from hydra image
+- find your successfully built image here
+https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image_raspberrypi4.aarch64-linux
+https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image_new_kernel.aarch64-linux
+https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image.aarch64-linux
+I was using this
+https://hydra.nixos.org/build/126584314
+- use zstd to unpack it
+nix-shell -p 'zstd'
+zstd -d nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img.zst
+- burn the sdcard
+  diskutil list
+  sudo dd if=/Users/andy/Downloads/nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img of=/dev/disk4
+- blindly set your passwd
+  passwd
+  pass
+  pass
+- blindly start sshd
+  sudo systemctl start sshd
+- ssh into machine
+  ssh nixos@IP
+  pass
+- create config file
+  sudo nixos-generate-config
+- overwrite with your config
+- cleanly reboot
+  su andy
+  sudo reboot
+- sudo nixos-rebuild swith
+- fix booting older generations (?)
+  https://nixos.wiki/wiki/Bootloader#Re-installing_the_bootloader
+  https://gist.github.com/chrisanthropic/2e6d3645f20da8fd4c1f122113f89c06
+  sudo nixos-rebuild --install-bootloader switch
+- sshd still not working
+  https://unix.stackexchange.com/questions/530370/why-doesnt-sshd-work-on-my-nixos-on-raspberry-pi
+  https://github.com/NixOS/nixpkgs/issues/26776#issuecomment-310555407
+- no sshd
+  user / pass
+  sudo systemctl start sshd
+  sudo nixos-rebuild switch
+https://eipi.xyz/blog/installing-nixos-on-a-raspberry-pi-3/
+https://nixos.wiki/wiki/NixOS_on_ARM/Raspberry_Pi_4
+https://schauderbasis.de/posts/install_nixos_on_raspberry_pi_4/
+* nixos server
+** download image
+https://hydra.nixos.org/build/143009688
+* save your current image
+nix-env -f https://github.com/nix-community/nixos-generators/archive/master.tar.gz -i
+nixos-generate -f raw-efi
+
+* TODO Upgrading :todo:
+1. find the channel you're interested on [[https://channels.nixos.org/][Channels for NixOS project(s)]]
+2. add the corresponding channel to your list
+   #+begin_src sh
+nix-channel --add https://nixos.org/channels/nixos-21.05-small nixos
+   #+end_src
+3. switch
+   #+begin_src sh
+nixos-rebuild switch --upgrade
+   #+end_src

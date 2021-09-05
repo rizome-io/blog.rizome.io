@@ -1,0 +1,50 @@
+#+TITLE: Working with nix cache
+#+DATE: <2019-11-16 Sat>
+#+CATEGORY: nixos
+#+DESCRIPTION: simple way to cache nix shell.
+#+TAGS: nix
+#+IMAGE: images/lucid_intro.png
+#+EXCLUDE_TAGS: apple
+
+* tldr;
+most of the time you want this
+#+begin_src sh
+nix-shell --command 'echo OK'
+nix-store --query --references $(nix-instantiate shell.nix) | \
+    xargs nix-store --realise | \
+    xargs nix-store --query --requisites | \
+    cachix push <your_cache>
+#+end_src
+but with *plutus* you probably want this
+#+begin_src sh
+nix-shell --command 'echo OK'
+nix-store -qR --include-outputs $(nix-instantiate shell.nix) \
+  | cachix push <your_cache>
+#+end_src
+- you can use our darwin m1 cache with cachix [fn:1]
+#+begin_src sh
+cachix use rizomeio
+#+end_src
+
+* A way to cache them all
+Working on larger projects bootstrapped with =nix= you would probably like to create a cache for the cases when the build step takes long times, it is with plutus[fn:2] which did take ~5h to build on my shiny m1, given how easy it is to accidentally remove all that hard work with =nix-collect-garbage -d= it is a good ideat to store it safely in cache.
+
+There are options to host your own with s3[fn:3], or using a simpler saas solution [[https://cachix.org/][cachix]]
+
+#+begin_quote
+A binary cache builds Nix packages and caches the result for other machines.
+#+end_quote
+
+The recommended way to cache the nix-shell[fn:4] did not work in case of plutus shell, presumably due to some nix configuration on the plutus that does require intermediate derivations in place. Thus we're using the =not realized= reference set to be cached
+
+#+begin_src sh
+nix-shell --command 'echo OK'
+nix-store -qR --include-outputs $(nix-instantiate shell.nix) \
+  | cachix push <your_cache>
+#+end_src
+
+* Footnotes
+[fn:4] [[https://docs.cachix.org/faq.html#is-there-a-way-to-cache-nix-shell][https://docs.cachix.org/faq.html#is-there-a-way-to-cache-nix-shell]]
+[fn:3] [[https://fzakaria.com/2020/07/15/setting-up-a-nix-s3-binary-cache.html][https://fzakaria.com/2020/07/15/setting-up-a-nix-s3-binary-cache.html]]
+[fn:2] [[https://github.com/input-output-hk/plutus][https://github.com/input-output-hk/plutus]]
+[fn:1] [[https://app.cachix.org/cache/rizomeio][https://app.cachix.org/cache/rizomeio]]
