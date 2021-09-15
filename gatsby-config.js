@@ -14,6 +14,13 @@ module.exports = {
   },
   plugins: [
     {
+     resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: ['G-9WVNPCGXSC'],
+      }
+    },
+    {
       resolve: 'gatsby-theme-orga-posts',
       options: {
         columns: 1,
@@ -22,3 +29,5 @@ module.exports = {
     },
   ],
 }
+
+// G-9WVNPCGXSC
