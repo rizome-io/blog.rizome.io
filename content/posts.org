@@ -49,6 +49,32 @@ CLOSED: [2021-08-14 Sat 11:42]
 :END:
 
 Hi, this is the content from org-mode. BLAH!!!!
+* DRAFT Lobster
+:PROPERTIES:
+:DESCRIPTION: you would like to participate in Lobster challenge? here's how.
+:END:
+1. lets get the latest parameters
+   #+begin_src sh
+cardano-cli query utxo --address addr1w8433zk2shufk42hn4x7zznjjuqwwyfmxffcjszw5l2ulesdt3jff --mainnet
+   #+end_src
+#+RESULTS:
+| 319752b414804415988fb1165358e69f46095a9e9b1c01ef0830c182dc57f78b     0        1000000 lovelace + TxOutDatumHashNone                                                                                                                                                                                                                                                                                                                       |
+| 4c34feb07e32aa4855a494306aefcf16743356811914d680e112a6ec12214455     0        1000000 lovelace + TxOutDatumHashNone                                                                                                                                                                                                                                                                                                                       |
+| 67d318fabdd9905033bfe6156c6595716c952d496cabb9d98773c948974780ec     0        1000000 lovelace + TxOutDatumHashNone                                                                                                                                                                                                                                                                                                                       |
+| cb7b44500fc9145cf5b13a533bc7616eb219b7a080bc49d7ce6204c06b351733     0        1000000 lovelace + TxOutDatumHashNone                                                                                                                                                                                                                                                                                                                       |
+| d71a7d14cdfd7370eac29ef885732fbc9c9e521faf319b84a5caed5fc67e181b     1        2034438 lovelace + 1 cc7888851f0f5aa64c136e0c8fb251e9702f3f6c9efcf3a60a54f419.LobsterNFT + 731 fda1b6b487bee2e7f64ecf24d24b1224342484c0195ee1b7b943db50.LobsterCounter + 17 fda1b6b487bee2e7f64ecf24d24b1224342484c0195ee1b7b943db50.LobsterVotes + TxOutDatumHash ScriptDataInAlonzoEra "45b0cfc220ceec5b7c1c62c4d4193d38e4eba48e8815729ce75f9c0ab0e4c1c0" |
+| db250ed5eb4454843af19dea7ca84a8adda170fc88284e7e5e2381b41dab5f9b     1        30768137 lovelace + TxOutDatumHashNone                                                                                                                                                                                                                                                                                                                      |
+1. what is our utxo
+   #+begin_src sh
+cardano-cli query utxo --address <your address here> --mainnet
+   #+end_src
+
+#+begin_src sh
+./lobster-contribute.sh <your utxo for collateral> <lobster utxo> <path to your addr file> <path to payment.skey> <old lobster Counter> <your new desired lobster Counter> <Vote count> <vote count +1>
+#+end_src
+
+
+3. make sure ~export CARDANO_NODE_SOCKET_PATH=node.socket~ is pointing at correct socket file in
 
 * DRAFT Post 2
 CLOSED: [2019-10-14 Mon 12:42]
