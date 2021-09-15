@@ -5,6 +5,7 @@
   "version": "3.0.3",
   "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
   "dependencies": {
+    "@fontsource/barlow": "^4.5.0",
     "gatsby": "^3.10.0",
     "gatsby-core-utils": "^2.12.0",
     "gatsby-plugin-emotion": "^6.2.0",

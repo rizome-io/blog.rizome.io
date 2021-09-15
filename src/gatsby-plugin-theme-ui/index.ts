@@ -30,7 +30,7 @@ const colors = {
 }
 
 const fonts = {
-  body: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
+  body: 'Barlow, Helvetica Nueue, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
   heading: 'inherit',
   monospace: 'Menlo, monospace',
 }
