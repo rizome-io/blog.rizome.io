@@ -116,6 +116,7 @@ function processRelativeImage(source, context, type) {
 // These templates are simply data-fetching wrappers that import components
 const PostTemplate = require.resolve(`./src/templates/post-query`)
 const PostsTemplate = require.resolve(`./src/templates/posts-query`)
+const HomeTemplate = require.resolve(`./src/templates/home-query`)
 
 const withAndWithoutTrailingSlash = (v) => {
   return [v, v.endsWith('/') ? v.slice(0, -1) : `${v}/`]
@@ -130,6 +131,8 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
     categoryIndexPath,
     tagIndexPath,
     imageMaxWidth,
+    listImageWidth,
+    listImageHeight,
     columns,
   } = withDefaults(themeOptions)
 
@@ -175,6 +178,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
   })
 
   // create category index
+  const indexContextDefault = { columns, width: listImageWidth, height: listImageHeight }
   if (categoryIndexPath) {
     const categories = _.flow(
       _.map(_.get('category')),
@@ -191,7 +195,7 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         posts: _.filter({ category })(posts),
         pagination,
         component: PostsTemplate,
-        context: { columns },
+        context: { ...indexContextDefault },
       })
     })
   }
@@ -209,20 +213,21 @@ exports.createPages = async ({ graphql, actions, reporter }, themeOptions) => {
         posts: posts.filter((p) => p.tags.includes(tag)),
         pagination,
         component: PostsTemplate,
-        context: { tag, columns },
+        context: { ...indexContextDefault, tag },
       })
     })
   }
 
   // create index for all
+  const tags = _.flow(_.flatMap(_.get('tags')), _.uniq)(posts)
   if (indexPath) {
     createIndex({
       basePath: indexPath,
       createPage,
       posts,
       pagination,
-      component: PostsTemplate,
-      context: { columns },
+      component: HomeTemplate,
+      context: { ...indexContextDefault, tags },
     })
   }
 }
