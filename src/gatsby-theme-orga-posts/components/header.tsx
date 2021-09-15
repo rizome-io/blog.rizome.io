@@ -11,7 +11,7 @@ export default ({ title }) => {
       sx={{
         '@media print': { display: 'none' },
         display: 'flex',
-        py: 4,
+        pb: 4,
         justifyContent: 'space-between',
         flexGrow: 4,
       }}
@@ -19,7 +19,7 @@ export default ({ title }) => {
       <Link to="/">
         <Text
           sx={{
-            fontSize: '2em',
+            fontSize: 6, fontWeight: 'bold',
             px: 3,
             py: 1,
             textTransform: 'uppercase',

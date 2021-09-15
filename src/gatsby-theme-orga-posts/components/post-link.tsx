@@ -32,14 +32,14 @@ const PostLink = ({ title, category, slug, date, excerpt, tags, image }: Props) 
               <Text sx={{ fontStyle: 'italic' }}>{category}</Text>
             </Link>
             <header>
-              <Heading as="h3">{title}</Heading>
+              <Heading as="h2">{title}</Heading>
               <time sx={{ color: 'gray', fontSize: 'small' }}>
                 <DateIcon sx={{ mr: 1 }} />
                 {date}
               </time>
             </header>
             <section sx={{ pb: 2, flex: 1 }}>
-              <Text color="text">{excerpt}</Text>
+              <Text color="text" variant="blogtext">{excerpt}</Text>
             </section>
             <Flex sx={{ justifyContent: 'flex-end', px: 1 }}>
               <Tags tags={tags} />

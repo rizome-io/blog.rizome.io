@@ -6,10 +6,10 @@ const heading = {
 
 const colors = {
   text: '#202124',
-  background: '#fff',
-  primary: '#1a73e8',
-  secondary: '#30c',
-  highlight: '#efeffe',
+  background: '#eee',
+  primary: '#8c4c6f',
+  secondary: '#edc4a4',
+  highlight: '#edc4a4',
   muted: '#f1f3f4',
   gray: '#777',
   accent: '#609',
@@ -17,14 +17,14 @@ const colors = {
   definition: 'rgba(255, 255, 255, 0.1)',
   modes: {
     dark: {
-      text: 'hsl(210, 50%, 96%)',
-      background: 'hsl(230, 25%, 18%)',
-      primary: 'hsl(260, 100%, 80%)',
-      secondary: 'hsl(290, 100%, 80%)',
-      highlight: 'hsl(260, 20%, 40%)',
-      purple: 'hsl(290, 100%, 80%)',
+      text: '#babab6',
+      background: '#20282b',
+      secondary: '#8c4c6f',
+      primary: '#edc4a4',
+      highlight: '#8c4c6f',
+      purple: '#8c4c6f',
       muted: 'hsla(230, 20%, 0%, 20%)',
-      gray: 'hsl(210, 50%, 60%)',
+      gray: '#888',
     },
   },
 }
@@ -37,8 +37,8 @@ const fonts = {
 const fontSizes = [12, 14, 16, 20, 24, 32, 48, 64, 72]
 
 const fontWeights = {
-  body: 400,
-  heading: 800,
+  body: 300,
+  heading: 500,
   display: 900,
 }
 
@@ -75,6 +75,7 @@ const buttons = {
 
 const badges = {
   tag: {
+    fontWeight: 'body',
     transition: '0.3s',
     color: 'background',
     '&:hover': {
@@ -83,9 +84,6 @@ const badges = {
       transform: 'scale(1.1)',
     },
   },
-}
-
-const layout = {
 }
 
 const styles = {
@@ -97,7 +95,6 @@ const styles = {
     fontFamily: 'body',
     lineHeight: 'body',
     fontWeight: 'body',
-    fontSize: [2, 4],
     a: {
       color: 'primary',
       textDecoration: 'none',
@@ -253,7 +250,7 @@ const hljs = [
       'built_in',
       'string',
     ],
-    style: { color: 'secondary' },
+    style: { color: 'primary' },
   },
 ].reduce(
   (styles, { selectors, style }) => ({
@@ -280,10 +277,15 @@ export const orga = {
       mt: 3,
     },
   },
+  text: {
+    blogtext: {
+      fontSize: [2,3],
+      lineHeight: 1.5,
+    }
+  },
   cards,
   buttons,
   badges,
-  layout,
   styles,
   hljs,
   prism: {
