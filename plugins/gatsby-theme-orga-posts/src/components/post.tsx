@@ -12,7 +12,7 @@ import { FaTags as TagsIcon } from 'react-icons/fa'
 import SEO from './seo'
 import Tags from './tags'
 
-import { getSrc } from 'gatsby-plugin-image'
+import { getSrc } from "gatsby-plugin-image"
 
 export default ({ data }) => {
   const post = data.orgPost

@@ -1,5 +1,18 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- gatsby-theme-orga-posts-core@3.1.2
+
+## 3.1.1
+
+### Patch Changes
+
+- 00d96836: Use plugin image
+  - gatsby-theme-orga-posts-core@3.1.1
+
 ## 3.1.0
 
 ### Minor Changes
