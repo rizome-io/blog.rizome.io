@@ -108,6 +108,7 @@ const styles = {
     },
     h1: {
       variant: 'textStyles.display',
+      fontWeight: 'normal',
     },
     h2: {
       variant: 'textStyles.heading',
@@ -146,6 +147,9 @@ const styles = {
       fontFamily: 'monospace',
       color: 'secondary',
       fontSize: 1,
+    },
+    strong: {
+      fontWeight: 'normal'
     },
     inlineCode: {
       fontFamily: 'monospace',
