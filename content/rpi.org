@@ -1,24 +1,27 @@
-#+TITLE: File based post
-#+DATE: <2021-08-16 Mon>
-#+CATEGORY: rpi4
-#+DESCRIPTION: is it possible to install nixos on raspberry pi 4 without attaching to screen.
-#+TAGS: nix raspberryPi
-#+IMAGE: images/lucid_intro.png
-#+EXCLUDE_TAGS: todo
+#+ORGA_PUBLISH_KEYWORD: PUBLISHED
+#+TODO: TODO NEXT | DONE
+#+TODO: DRAFT | PUBLISHED
 
+* TODO Nixos on rpi4 :todo:
+CLOSED: <2021-08-16 Mon>
+:PROPERTIES:
+:CATEGORY: rpi4
+:DESCRIPTION: is it possible to install nixos on raspberry pi 4 without attaching to screen.
+:TAGS: nix raspberryPi
+:IMAGE: images/lucid_intro.png
+:EXCLUDE_TAGS: todo
+:END:
 
-This is a file based post.
-
-* Nix on raspberry pi 4
-** download your image
+** Nix on raspberry pi 4
+*** download your image
 https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image.aarch64-linux/all
-** extract
+*** extract
 #+begin_src sh
 nix-shell -p 'zstd'
 zstd -d nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img.zst
 
 #+end_src
-** into machine
+*** into machine
 - blindly set your passwd
   passwd
   pass
@@ -30,7 +33,7 @@ zstd -d nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img.zst
   pass
 - create config file
   sudo nixos-generate-config
-*** overwrite with your config
+**** overwrite with your config
   ~services.openssh.enable = true;~
   https://nixos.org/manual/nixos/stable/index.html#sec-user-management
   ~mkpasswd -m sha-512~
@@ -57,8 +60,8 @@ zstd -d nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img.zst
 
 
   #+end_src
-** sudo nixos-rebuild switch
-* Building from source
+*** sudo nixos-rebuild switch
+** Building from source
 #+begin_src sh
 git clone --depth=1 -b $RELEASE https://github.com/NixOS/nixpkgs
 #+end_src
@@ -81,7 +84,7 @@ git clone --depth=1 -b $RELEASE https://github.com/NixOS/nixpkgs
   services.openssh.enabled = true;
 }
 #+end_src
-* Building from hydra image
+** Building from hydra image
 - find your successfully built image here
 https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image_raspberrypi4.aarch64-linux
 https://hydra.nixos.org/job/nixos/trunk-combined/nixos.sd_image_new_kernel.aarch64-linux
@@ -124,14 +127,14 @@ zstd -d nixos-sd-image-20.09pre242769.61525137fd1-aarch64-linux.img.zst
 https://eipi.xyz/blog/installing-nixos-on-a-raspberry-pi-3/
 https://nixos.wiki/wiki/NixOS_on_ARM/Raspberry_Pi_4
 https://schauderbasis.de/posts/install_nixos_on_raspberry_pi_4/
-* nixos server
-** download image
+** nixos server
+*** download image
 https://hydra.nixos.org/build/143009688
-* save your current image
+** save your current image
 nix-env -f https://github.com/nix-community/nixos-generators/archive/master.tar.gz -i
 nixos-generate -f raw-efi
 
-* TODO Upgrading :todo:
+** TODO Upgrading :todo:
 1. find the channel you're interested on [[https://channels.nixos.org/][Channels for NixOS project(s)]]
 2. add the corresponding channel to your list
    #+begin_src sh

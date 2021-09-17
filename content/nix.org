@@ -1,12 +1,17 @@
-#+TITLE: Working with nix cache
-#+DATE: <2019-11-16 Sat>
+#+ORGA_PUBLISH_KEYWORD: PUBLISHED
+#+TODO: TODO NEXT | DONE
+#+TODO: DRAFT | PUBLISHED
+
+* DRAFT Working with nix cache
+CLOSED: [2019-11-16 Sat]
+:PROPERTIES:
 #+CATEGORY: nixos
 #+DESCRIPTION: simple way to cache nix shell.
 #+TAGS: nix
 #+IMAGE: images/lucid_intro.png
-#+EXCLUDE_TAGS: apple
+:END:
 
-* tldr;
+** tldr;
 most of the time you want this
 #+begin_src sh
 nix-shell --command 'echo OK'
@@ -26,7 +31,7 @@ nix-store -qR --include-outputs $(nix-instantiate shell.nix) \
 cachix use rizomeio
 #+end_src
 
-* A way to cache them all
+** A way to cache them all
 Working on larger projects bootstrapped with =nix= you would probably like to create a cache for the cases when the build step takes long times, it is with plutus[fn:2] which did take ~5h to build on my shiny m1, given how easy it is to accidentally remove all that hard work with =nix-collect-garbage -d= it is a good ideat to store it safely in cache.
 
 There are options to host your own with s3[fn:3], or using a simpler saas solution [[https://cachix.org/][cachix]]
@@ -43,8 +48,24 @@ nix-store -qR --include-outputs $(nix-instantiate shell.nix) \
   | cachix push <your_cache>
 #+end_src
 
-* Footnotes
+** Footnotes
 [fn:4] [[https://docs.cachix.org/faq.html#is-there-a-way-to-cache-nix-shell][https://docs.cachix.org/faq.html#is-there-a-way-to-cache-nix-shell]]
 [fn:3] [[https://fzakaria.com/2020/07/15/setting-up-a-nix-s3-binary-cache.html][https://fzakaria.com/2020/07/15/setting-up-a-nix-s3-binary-cache.html]]
 [fn:2] [[https://github.com/input-output-hk/plutus][https://github.com/input-output-hk/plutus]]
 [fn:1] [[https://app.cachix.org/cache/rizomeio][https://app.cachix.org/cache/rizomeio]]
+* DRAFT Declarative substituters
+CLOSED: [2019-11-16 Sat]
+:PROPERTIES:
+#+CATEGORY: nixos
+#+description: It seems odd, but all the suggested solutions online would be suggesting to statefully edit `/etc/nix/nix.conf` substituters. I want it declarative way
+#+TAGS: nix
+#+IMAGE: images/lucid_intro.png
+:END:
+
+
+#+begin_src nix
+  nix = {
+    binaryCaches          = [ "https://hydra.iohk.io" "https://iohk.cachix.org" ];
+    binaryCachePublicKeys = [ "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ=" "iohk.cachix.org-1:DpRUyj7h7V830dp/i6Nti+NEO2/nhblbov/8MW7Rqoo=" ];
+  };
+#+end_src
