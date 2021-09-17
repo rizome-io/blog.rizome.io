@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Link } from 'gatsby'
-import { jsx, Box, Text, useColorMode } from 'theme-ui'
+import { jsx, Box, Text } from 'theme-ui'
 import ThemeSwitch from './theme-switch'
 
 // const rootPath = `${__PATH_PREFIX__}/`
