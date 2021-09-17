@@ -1,0 +1,28 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+        cache: 'npm'
+
+    - name: install deps
+      run: npm ci
+    - name: build the website
+      run: npm run build
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.0
+      with:
+        branch: gh-pages
+        folder: public
