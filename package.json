@@ -1,9 +1,9 @@
 {
-  "name": "@orgajs/example-gatsby-posts",
+  "name": "blog.rizome.io",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "3.0.3",
-  "author": "Xiaoxing Hu <xiaoxing@huxx.org>",
+  "description": "Notes on development, blockchains and philosophy",
+  "version": "0.1.0",
+  "author": "Andrej Novikov <id@rizome.io>",
   "dependencies": {
     "@fontsource/barlow": "^4.5.0",
     "gatsby": "^3.10.0",
@@ -39,13 +39,5 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }
