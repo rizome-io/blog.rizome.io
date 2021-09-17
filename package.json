@@ -6,6 +6,7 @@
   "author": "Andrej Novikov <id@rizome.io>",
   "dependencies": {
     "@fontsource/barlow": "^4.5.0",
+    "@theme-ui/css": "^0.6.0",
     "gatsby": "^3.10.0",
     "gatsby-core-utils": "^2.12.0",
     "gatsby-plugin-emotion": "^6.2.0",
