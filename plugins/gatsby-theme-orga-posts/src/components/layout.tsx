@@ -37,7 +37,9 @@ const Layout = ({ children }) => {
           maxWidth: 900,
         }}
       >
+        <div sx={{ flex: '0 0 auto' }}>
         {header}
+        </div>
         <div
           sx={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}
         >

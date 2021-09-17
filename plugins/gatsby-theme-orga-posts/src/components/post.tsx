@@ -52,7 +52,7 @@ export default ({ data }) => {
               Read more stories about "{post.category}"
             </Text>
           </Link>
-          <PostShare post={post} />
+          {/* <PostShare post={post} /> */}
           <Divider />
           <Bio />
         </Box>

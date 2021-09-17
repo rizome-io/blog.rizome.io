@@ -10,7 +10,14 @@ module.exports = (themeOptions) => {
     },
     plugins: [
       `gatsby-plugin-image`,
-      `gatsby-plugin-sharp`,
+      {
+        resolve: `gatsby-plugin-sharp`,
+        options: {
+          defaults: {
+            quality: 80
+          }
+        }
+      },
       `gatsby-transformer-sharp`,
       {
         resolve: `gatsby-transformer-orga`,
